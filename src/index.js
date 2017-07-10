@@ -11,7 +11,7 @@ const boxSize = rows * (32 + 6 * 2)
 let arr = ((rows) => {
   let arr = []
   for (let i = 0; i < rows * rows; i++) {
-    arr.push(t(100) % 2)
+    arr.push(t(100) % 3)
   }
   console.log(arr)
   return arr

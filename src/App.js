@@ -35,8 +35,8 @@ class App extends Component {
     for (let x = 0; x < this.props.rows; x++) {
       for (let y = 0; y < this.props.rows; y++) {
         let index = x * this.rows + y
-        let f = this.arr[index] > 0 ? true : false 
-        rows.push(<Chess id={index} flag={f} key={index.toString()} />)
+        // let f = this.arr[index] > 0 ? true : false 
+        rows.push(<Chess id={index} flag={this.arr[index]} key={index.toString()} />)
       }
     }
 
