@@ -30,7 +30,8 @@ body {
   text-align: left;
   border: $chessBoardHalfLine solid $chessBoardLineColor;
   // transition: all 0.3s ease-in-out;
-  &:after {
+  &.white:after,
+  &.black:after {
     content: '';
     position: absolute;
     margin: $chessMargin;
@@ -42,7 +43,7 @@ body {
     transition: all 0.3s ease-in-out;
     box-sizing: border-box;
   }
-  &.flag:after {
+  &.black:after {
     background: $chessBoardLineColor;
   }
 }
