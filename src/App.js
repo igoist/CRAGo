@@ -11,27 +11,51 @@ class App extends Component {
     this.boxSize = this.props.boxSize
     console.log(this.props.arr)
     this.handleChess = this.handleChess.bind(this)
+    // this.state = {
+    //   chess: Array(this.rows * this.rows).fill(null),
+    //   aIsNext: true,
+    // }
     this.state = {
-      chess: Array(this.rows * this.rows).fill(null),
+      history: [{
+        chess: Array(this.rows * this.rows).fill(null),
+      }],
+      stepNumber: 0,
       aIsNext: true,
     }
   }
 
   handleChess(x, y) {
+    // const history = this.state.history;
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const chess = current.chess.slice();
+
     let index = x * this.rows + y
-    const chess = this.state.chess.slice()
     chess[index] = this.state.aIsNext ? 'a' : 'b';
     this.setState({
-      chess: chess,
+      history: history.concat([{
+        chess: chess,
+      }]),
+      stepNumber: history.length,
       aIsNext: !this.state.aIsNext,
     })
   }
 
+  jumpTo(step) {
+    this.setState({
+      stepNumber: step,
+      aIsNext: (step % 2) === 0,
+    });
+  }
+
   renderChess(i, x, y) {
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+
     return (
       <Chess
         key={i.toString()}
-        flag={this.state.chess[i]}
+        flag={current.chess[i]}
         onClick={() => this.handleChess(x, y)}
       />
     );
@@ -52,9 +76,29 @@ class App extends Component {
     //     rows.push(this.renderChess(index, x, y))
     //   }
     // }
-    let rows = this.state.chess.map((v, i) => {
+    // let rows = this.state.chess.map((v, i) => {
+    //   return this.renderChess(i, parseInt(i / this.rows), i%this.rows)
+    // })
+
+    const history = this.state.history;
+    const current = history[history.length - 1];
+
+    const moves = history.map((step, move) => {
+      const desc = move ?
+        'Move #' + move :
+        'Game start';
+      return (
+        <li key={move.toString()}>
+          <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
+        </li>
+      );
+    });
+
+    let rows = current.chess.map((v, i) => {
       return this.renderChess(i, parseInt(i / this.rows), i%this.rows)
     })
+
+    const status = 'Next player: ' + (this.state.aIsNext ? 'Black' : 'White');
 
     return (
       <div className="App">
@@ -69,6 +113,10 @@ class App extends Component {
         <div id="board" style={inlineStyle}>
           {/*{rows}*/}
           {rows}
+        </div>
+        <div className="game-info">
+          <div>{status}</div>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
