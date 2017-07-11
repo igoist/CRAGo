@@ -111,7 +111,6 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <div id="board" style={inlineStyle}>
-          {/*{rows}*/}
           {rows}
         </div>
         <div className="game-info">
