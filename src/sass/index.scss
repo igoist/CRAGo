@@ -8,8 +8,10 @@ $chessMargin: 2px;
 
 body {
   margin: 0 auto;
+  padding-bottom: 190px;
   vertical-align: middle;
   background: $chessBoardBgColor;
+  font-family: "Biaodian Pro Sans CNS","Helvetica Neue",Helvetica,Arial,"Zhuyin Heiti","Han Heiti",sans-serif;
 }
 
 #board {
@@ -30,20 +32,37 @@ body {
   text-align: left;
   border: $chessBoardHalfLine solid $chessBoardLineColor;
   // transition: all 0.3s ease-in-out;
-  &.white:after,
-  &.black:after {
-    content: '';
+  &:after {
     position: absolute;
     margin: $chessMargin;
     width: $chessSize - $chessMargin * 2;
     height: $chessSize - $chessMargin * 2;
-    background: #fff;
-    border: 1px solid $chessBoardLineColor;
+    // border: 1px solid $chessBoardLineColor;
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
     box-sizing: border-box;
   }
+  &.white:after,
   &.black:after {
-    background: $chessBoardLineColor;
+    content: '';
   }
+  &.white:after {
+    background: #fff;
+    box-shadow: inset 0 0 6px #666, 0 0px 6px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.5);
+  }
+  &.black:after {
+    // background: $chessBoardLineColor;
+    background: radial-gradient(
+      circle closest-side,
+      #999,
+      $chessBoardLineColor
+    );
+    box-shadow: 0 0px 6px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.5);
+  }
+}
+
+.game-info {
+  position: absolute;
+  top: 220px;
+  left: 12px;;
 }

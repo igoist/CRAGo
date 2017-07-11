@@ -6,29 +6,19 @@ class Chess extends React.Component {
     this.state = {
       flag: this.props.flag
     }
-    this.h = this.h.bind(this)
   }
-
-  h() {
-    // if (this.flag )
-    this.setState({
-      flag: !this.state.flag
-    })
-  }
-  // handleChessClick
 
   render() {
-    // let str = this.state.flag > 0 ? 'chess flag' : 'chess'
     let str;
-    if (this.state.flag === 1) {
+    if (this.props.flag == 'a') {
       str = 'chess black';
-    } else if (this.state.flag === 2) {
+    } else if (this.props.flag == 'b') {
       str = 'chess white';
     } else {
       str = 'chess';
     }
     return (
-      <div className={str} onClick={this.h}>
+      <div className={str} onClick={() => this.props.onClick()}>
       </div>
     )
   }
